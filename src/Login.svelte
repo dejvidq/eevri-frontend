@@ -1,9 +1,18 @@
 <script>
-  export let onRegisterClick;
+  if (localStorage.getItem("accessToken")) {
+    window.location.href = "/";
+  }
   let username;
   let password;
+  let loginSuccessful = false;
+  function onRegisterClick() {
+    window.location.href = "/register";
+  }
 
   function handleSubmit() {
+    if (!username || !password) {
+      return;
+    }
     fetch("http://localhost:8000/auth/login", {
       method: "POST",
       headers: {
@@ -15,12 +24,22 @@
         password: password,
       }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        if (res.ok) {
+          loginSuccessful = true;
+          return res.json();
+        }
+        document.querySelector(".loginError").style.display = "block";
+        return;
+      })
       .then((data) => {
         console.log(data);
-        let accessToken = data.access_token;
-        localStorage.setItem("accessToken", accessToken);
-        location.reload();
+        if (loginSuccessful) {
+          let accessToken = data.access_token;
+          localStorage.setItem("accessToken", accessToken);
+          window.location.href = "/";
+        }
       })
       .catch((err) => console.log(err));
   }
@@ -47,9 +66,11 @@
         placeholder="Enter your password"
         bind:value={password}
       />
+      <p class="loginError">Incorrect username or password!</p>
 
       <button type="submit">Log in</button>
-      <a href="#" on:click|preventDefault={onRegisterClick}>Register!</a>
+      <a href="/register" on:click|preventDefault={onRegisterClick}>Register!</a
+      >
     </form>
   </div>
 </div>
@@ -115,6 +136,11 @@
 
   ::placeholder {
     text-align: center;
+  }
+  .loginError {
+    color: red;
+    margin: 5px;
+    display: none;
   }
 
   /* Mobile styles */

@@ -1,9 +1,41 @@
 <script>
+  let registrationSuccessful = false;
+
   let username;
   let password;
   let email;
+  const emailRegex =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   function handleSubmit() {
+    if (!username || !password || !email) {
+      return;
+    }
+    document.querySelector(".usernameError").style.display = "none";
+    document.querySelector(".emailError").style.display = "none";
+    let error = false;
+    if (username.length < 5) {
+      document.querySelector(".usernameError").style.display = "block";
+      error = true;
+    }
+    if (!emailRegex.test(email)) {
+      document.querySelector(".emailError").style.display = "block";
+      error = true;
+    }
+    if (
+      password.length < 8 ||
+      !/[A-Z]/.test(password) ||
+      !/[a-z]/.test(password) ||
+      !/[0-9]/.test(password) ||
+      !/[~!@#$%^&*()_\-+={[}\]|:;"'<,>.?/]/.test(password)
+    ) {
+      document.querySelector(".passwordError").style.display = "block";
+      error = true;
+    }
+    if (error) {
+      return;
+    }
+
     fetch("http://localhost:8000/auth/register", {
       method: "POST",
       headers: {
@@ -16,50 +48,79 @@
         password: password,
       }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 200) {
+          registrationSuccessful = true;
+        }
+        return res.json();
+      })
       .then((data) => {
+        if (data.detail.includes("Username")) {
+          document.querySelector(".usernameError").style.display = "block";
+          document.querySelector(".usernameError").innerHTML = data.detail;
+        }
+        if (data.detail.includes("Email")) {
+          document.querySelector(".emailError").style.display = "block";
+          document.querySelector(".emailError").innerHTML = data.detail;
+        }
         console.log(data);
-        let accessToken = data.access_token;
-        localStorage.setItem("accessToken", accessToken);
-        location.reload();
       })
       .catch((err) => console.log(err));
+  }
+
+  function moveToLogin() {
+    window.location.href = "/login";
   }
 </script>
 
 <div class="body">
   <div class="register-box">
     <h1>Register</h1>
-    <form method="POST" on:submit|preventDefault={handleSubmit}>
-      <label for="username">Username</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        placeholder="Enter your username"
-        bind:value={username}
-      />
+    {#if !registrationSuccessful}
+      <form method="POST" on:submit|preventDefault={handleSubmit}>
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="Enter your username"
+          bind:value={username}
+        />
+        <p class="usernameError">
+          Username has to be longer than 5 characters!
+        </p>
 
-      <label for="email">Email</label>
-      <input
-        type="text"
-        id="email"
-        name="email"
-        placeholder="Enter your email"
-        bind:value={email}
-      />
+        <label for="email">Email</label>
+        <input
+          type="text"
+          id="email"
+          name="email"
+          placeholder="Enter your email"
+          bind:value={email}
+        />
+        <p class="emailError">Invalid email!</p>
 
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        placeholder="Enter your password"
-        bind:value={password}
-      />
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter your password"
+          bind:value={password}
+        />
+        <p class="passwordError">
+          Password has to be longer than 8 characters and contain at least one
+          lowercase letter, one uppercase, number and special character!
+        </p>
 
-      <button type="submit">Register</button>
-    </form>
+        <button type="submit">Register</button>
+      </form>
+    {:else}
+      <p id="successText">Registration successful!</p>
+      <button class="moveToLogin" on:click={moveToLogin}
+        >Go back to login</button
+      >
+    {/if}
   </div>
 </div>
 
@@ -116,6 +177,28 @@
   }
   ::placeholder {
     text-align: center;
+  }
+
+  .usernameError,
+  .emailError,
+  .passwordError {
+    color: red;
+    margin: 5px;
+    display: none;
+  }
+
+  #successText {
+    color: #174a1e;
+  }
+
+  .moveToLogin {
+    background-color: #174a1e;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: center;
   }
 
   /* Mobile styles */
