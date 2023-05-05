@@ -46,12 +46,47 @@
         <p>User</p>
       </div>
     </div>
+    <div class="link">
+      <div class="container">
+        <div class="hiperlinks">
+          <Link />
+        </div>
+        <div class="hiperlinks">
+          <Link />
+        </div>
+        <div class="hiperlinks">
+          <Link />
+        </div>
+        <div class="hiperlinks">
+          <Link />
+        </div>
+        <div class="hiperlinks">
+          <Link />
+        </div>
+        <div class="hiperlinks">
+          <Link />
+        </div>
+        <div class="hiperlinks">
+          <Link />
+        </div>
+        <div class="hiperlinks">
+          <Link />
+        </div>
+        <div class="hiperlinks">
+          <Link />
+        </div>
+        <div class="hiperlinks">
+          <Link />
+        </div>
+      </div>
+    </div>
   </Route>
 </Router>
 
 <style>
   :global(body) {
     background-color: #b82533;
+    height: 100%;
   }
 
   /* .appName { */
@@ -87,6 +122,7 @@
     justify-content: space-between;
     align-items: center;
     margin-top: -30px;
+    height: 120px;
   }
 
   .appName {
@@ -103,8 +139,18 @@
     background-color: yellow;
   }
 
-  .link {
-    top: 0;
-    left: 0;
+  .container {
+    top: 15%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    min-height: 100%;
+  }
+
+  .container > .hiperlinks {
+    /* margin-top: 10px; */
+    height: 100px;
+    margin-bottom: 2%;
   }
 </style>
