@@ -1,25 +1,31 @@
+<script>
+  export let url;
+  export let name;
+</script>
+
 <div class="body">
   <div class="link-box">
-    <a href="https://google.com"><h1>link</h1></a>
+    <a href={url}><h2>{name}</h2></a>
   </div>
 </div>
 
 <style>
-  label {
-    color: black;
-  }
-
   .link-box {
-    height: 100px;
+    height: 60px;
     background-color: #bcc41b;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
 
-  .link-box h1 {
+  .link-box h2 {
     color: black;
-    /* text-align: center; */
-    padding-top: 25px;
+    text-align: left;
+    padding-top: 10px;
+    padding-left: 20px;
+  }
+
+  .link-box:hover {
+    background-color: #d0d55f;
   }
 
   /* .link-box::after { */
@@ -42,18 +48,17 @@
     .link-box {
       width: 280px;
       margin: 1px auto;
-      padding: 5px;
-      height: 100px;
+      height: 40px;
     }
 
-    .link-box h1 {
+    .link-box h2 {
       color: black;
       /* text-align: center; */
-      padding-top: 0px;
+      padding-top: 0;
     }
 
-    .link-box a {
-      font-size: 16px;
-    }
+    /* .link-box a { */
+    /*   font-size: 16px; */
+    /* } */
   }
 </style>

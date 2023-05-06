@@ -5,4 +5,10 @@
   }
 </script>
 
-<h1 class="brand">Eevri</h1>
+<a href="/"><h1 class="brand">Eevri</h1></a>
+
+<style>
+  .brand {
+    color: white;
+  }
+</style>

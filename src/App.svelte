@@ -3,7 +3,9 @@
   import Login from "./Login.svelte";
   import AppName from "./AppName.svelte";
   import Register from "./Register.svelte";
-  import Link from "./Link.svelte";
+  import Links from "./Links.svelte";
+  import Add from "./Add.svelte";
+  import Header from "./Header.svelte";
 
   let access_token = localStorage.getItem("accessToken");
   if (access_token) {
@@ -37,56 +39,21 @@
   <Route path="/register">
     <Register />
   </Route>
+  <Route path="/add">
+    <Header />
+    <Add />
+  </Route>
   <Route path="/">
-    <div class="header">
-      <div class="appName">
-        <AppName />
-      </div>
-      <div class="user">
-        <p>User</p>
-      </div>
-    </div>
-    <div class="link">
-      <div class="container">
-        <div class="hiperlinks">
-          <Link />
-        </div>
-        <div class="hiperlinks">
-          <Link />
-        </div>
-        <div class="hiperlinks">
-          <Link />
-        </div>
-        <div class="hiperlinks">
-          <Link />
-        </div>
-        <div class="hiperlinks">
-          <Link />
-        </div>
-        <div class="hiperlinks">
-          <Link />
-        </div>
-        <div class="hiperlinks">
-          <Link />
-        </div>
-        <div class="hiperlinks">
-          <Link />
-        </div>
-        <div class="hiperlinks">
-          <Link />
-        </div>
-        <div class="hiperlinks">
-          <Link />
-        </div>
-      </div>
-    </div>
+    <Header />
+    <a href="/add" class="add">Add</a>
+    <Links />
   </Route>
 </Router>
 
 <style>
   :global(body) {
     background-color: #b82533;
-    height: 100%;
+    min-height: 100vh;
   }
 
   /* .appName { */
@@ -113,44 +80,19 @@
   /*   left: 0; */
   /*   right: 0; */
   /* } */
-  .header {
+
+  .add {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: -30px;
-    height: 120px;
-  }
-
-  .appName {
-    margin-right: auto;
-    margin-left: 20px;
-  }
-
-  .user {
-    margin-left: auto;
-    margin-right: 20px;
-    margin-top: -10px;
-    padding: 10px;
-    color: black;
-    background-color: yellow;
-  }
-
-  .container {
-    top: 15%;
-    position: absolute;
-    left: 50%;
+    top: 12%;
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
     transform: translateX(-50%);
-    width: 80%;
-    min-height: 100%;
+    width: 20%;
+    background-color: #174a1e;
   }
 
-  .container > .hiperlinks {
-    /* margin-top: 10px; */
-    height: 100px;
-    margin-bottom: 2%;
+  .add:hover {
+    background-color: #2e5c34;
   }
 </style>
