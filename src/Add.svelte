@@ -4,6 +4,7 @@
   let description;
   let tags;
   let category;
+  let link_public;
   let addSuccessful = false;
 
   let access_token = localStorage.getItem("accessToken");
@@ -26,6 +27,7 @@
         description: description,
         tags: tags != null ? tags.split(",") : [],
         category: category,
+        public: link_public,
       }),
     })
       .then((res) => {
@@ -100,6 +102,12 @@
         bind:value={category}
       />
 
+      <label for="public">Public</label>
+      <select id="public" name="public" bind:value={link_public}>
+        <option value="false">False</option>
+        <option value="true">True</option>
+      </select>
+
       <button type="submit">Add</button>
     </form>
   </div>
@@ -125,7 +133,8 @@
     margin-bottom: 20px;
   }
 
-  .add-box input[type="text"] {
+  .add-box input[type="text"],
+  select {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;

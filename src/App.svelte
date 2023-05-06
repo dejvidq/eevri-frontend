@@ -6,6 +6,7 @@
   import Add from "./Add.svelte";
   import Header from "./Header.svelte";
   import LinkDetails from "./LinkDetails.svelte";
+  import EditLink from "./EditLink.svelte";
 
   let access_token = localStorage.getItem("accessToken");
   if (access_token) {
@@ -51,6 +52,18 @@
   <Route path="/link/:id" let:params>
     <Header />
     <LinkDetails id={params.id} />
+  </Route>
+  <Route path="/link/edit/:id" let:params>
+    <Header />
+    <EditLink id={params.id} />
+  </Route>
+  <Route path="/link/delete/:id" let:params>
+    <Header />
+    <EditLink id={params.id} />
+  </Route>
+  <Route path="/link/archive/:id" let:params>
+    <Header />
+    <EditLink id={params.id} />
   </Route>
 </Router>
 
