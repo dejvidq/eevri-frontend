@@ -1,11 +1,11 @@
 <script>
   import { Router, Route } from "svelte-routing";
   import Login from "./Login.svelte";
-  import AppName from "./AppName.svelte";
   import Register from "./Register.svelte";
   import Links from "./Links.svelte";
   import Add from "./Add.svelte";
   import Header from "./Header.svelte";
+  import LinkDetails from "./LinkDetails.svelte";
 
   let access_token = localStorage.getItem("accessToken");
   if (access_token) {
@@ -47,6 +47,10 @@
     <Header />
     <a href="/add" class="add">Add</a>
     <Links />
+  </Route>
+  <Route path="/link/:id" let:params>
+    <Header />
+    <LinkDetails id={params.id} />
   </Route>
 </Router>
 
