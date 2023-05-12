@@ -7,6 +7,7 @@
   import Header from "./Header.svelte";
   import LinkDetails from "./LinkDetails.svelte";
   import EditLink from "./EditLink.svelte";
+  import TagLinks from "./TagLinks.svelte";
 
   let access_token = localStorage.getItem("accessToken");
   if (access_token) {
@@ -48,6 +49,10 @@
     <Header />
     <a href="/add" class="add">Add</a>
     <Links />
+  </Route>
+  <Route path="/tag/:name" let:params>
+    <Header />
+    <TagLinks name={params.name} />
   </Route>
   <Route path="/link/:id" let:params>
     <Header />

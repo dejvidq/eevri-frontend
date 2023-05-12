@@ -103,7 +103,11 @@
     {/if}
     {#if tags}
       <label for="tags">Tags</label>
-      <p>{tags}</p>
+      <p>
+        {#each tags.split(",") as tag}
+          <a href="/tag/{tag.trim()}">{tag}</a>
+        {/each}
+      </p>
     {/if}
     <label for="category">Category</label>
     <p>{category}</p>
@@ -183,6 +187,10 @@
   }
   .public-button {
     background-color: #105a00;
+  }
+
+  p a {
+    color: white;
   }
   /* Mobile styles */
   @media only screen and (max-width: 900px) {
