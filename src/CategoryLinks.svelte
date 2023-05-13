@@ -1,10 +1,11 @@
 <script>
+  export let name;
   import Link from "./Link.svelte";
   let access_token = localStorage.getItem("accessToken");
   let links = [];
 
   function getLinks() {
-    fetch("http://localhost:8000/link", {
+    fetch("http://localhost:8000/category/" + name, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -23,6 +24,7 @@
   getLinks();
 </script>
 
+<h1>> {name}</h1>
 <div class="container">
   {#each links.reverse() as link}
     <div class="hiperlinks">
@@ -32,13 +34,19 @@
 </div>
 
 <style>
+  h1 {
+    top: 3%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
   .container {
     top: 17%;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
-    min-height: 0;
+    min-height: 10%;
     max-height: 80%;
     overflow-y: scroll;
   }

@@ -110,7 +110,7 @@
       </p>
     {/if}
     <label for="category">Category</label>
-    <p>{category}</p>
+    <p><a href="/category/{category}">{category}</a></p>
     <label for="public">Public</label>
     <p>{link_public}</p>
     <label for="archived">Archived</label>

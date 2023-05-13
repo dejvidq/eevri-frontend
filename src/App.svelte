@@ -8,6 +8,9 @@
   import LinkDetails from "./LinkDetails.svelte";
   import EditLink from "./EditLink.svelte";
   import TagLinks from "./TagLinks.svelte";
+  import CategoryLinks from "./CategoryLinks.svelte";
+  import SearchMy from "./SearchMy.svelte";
+  import SearchAll from "./SearchAll.svelte";
 
   let access_token = localStorage.getItem("accessToken");
   if (access_token) {
@@ -54,6 +57,10 @@
     <Header />
     <TagLinks name={params.name} />
   </Route>
+  <Route path="/category/:name" let:params>
+    <Header />
+    <CategoryLinks name={params.name} />
+  </Route>
   <Route path="/link/:id" let:params>
     <Header />
     <LinkDetails id={params.id} />
@@ -62,13 +69,13 @@
     <Header />
     <EditLink id={params.id} />
   </Route>
-  <Route path="/link/delete/:id" let:params>
+  <Route path="/search/my/:name" let:params>
     <Header />
-    <EditLink id={params.id} />
+    <SearchMy name={params.name} />
   </Route>
-  <Route path="/link/archive/:id" let:params>
+  <Route path="/search/all/:name" let:params>
     <Header />
-    <EditLink id={params.id} />
+    <SearchAll name={params.name} />
   </Route>
 </Router>
 

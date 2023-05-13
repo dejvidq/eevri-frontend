@@ -25,7 +25,10 @@
         url: url,
         name: name,
         description: description,
-        tags: tags != null ? tags.split(",") : [],
+        tags:
+          tags != null
+            ? tags.split(/\s+/).filter((item) => item.length > 0)
+            : [],
         category: category,
         public: link_public,
       }),
