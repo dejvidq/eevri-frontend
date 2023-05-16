@@ -11,6 +11,7 @@
   import CategoryLinks from "./CategoryLinks.svelte";
   import SearchMy from "./SearchMy.svelte";
   import SearchAll from "./SearchAll.svelte";
+  import ProfilePage from "./ProfilePage.svelte";
 
   let access_token = localStorage.getItem("accessToken");
   if (access_token) {
@@ -76,6 +77,10 @@
   <Route path="/search/all/:name" let:params>
     <Header />
     <SearchAll name={params.name} />
+  </Route>
+  <Route path="/profile">
+    <Header />
+    <ProfilePage />
   </Route>
 </Router>
 
