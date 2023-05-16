@@ -9,12 +9,6 @@
   let access_token = localStorage.getItem("accessToken");
 
   function handleSubmit() {
-    console.log(url);
-    console.log(name);
-    console.log(description);
-    console.log(tags);
-    console.log(category);
-    console.log(link_public);
     if (!url) {
       document.querySelector(".editError").style.display = "block";
       return;
@@ -44,6 +38,7 @@
       })
       .then((data) => {
         console.log(data);
+        window.location.href = "/link/" + id;
       })
       .catch((err) => console.log(err));
   }

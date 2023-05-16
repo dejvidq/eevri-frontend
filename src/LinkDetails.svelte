@@ -8,6 +8,7 @@
   let link_public;
   let archived;
   let archiveButtonText;
+  let mine;
 
   let access_token = localStorage.getItem("accessToken");
 
@@ -31,6 +32,7 @@
       category = data.link.category;
       link_public = data.link.public;
       archived = data.link.archived;
+      mine = data.link.mine;
     })
     .catch((err) => console.log(err));
 
@@ -116,16 +118,18 @@
     <label for="archived">Archived</label>
     <p>{archived}</p>
     <br />
-    <div class="buttons">
-      <a href="/link/edit/{id}" class="edit-button">Edit</a>
-      <button on:click={delete_link} class="delete-button">Delete</button>
-      <button on:click={toggle_archive_link} class="archive-button"
-        >{archiveButtonText}</button
-      >
-      <button on:click={toggle_public_link} class="public-button"
-        >{publicButtonText}</button
-      >
-    </div>
+    {#if mine}
+      <div class="buttons">
+        <a href="/link/edit/{id}" class="edit-button">Edit</a>
+        <button on:click={delete_link} class="delete-button">Delete</button>
+        <button on:click={toggle_archive_link} class="archive-button"
+          >{archiveButtonText}</button
+        >
+        <button on:click={toggle_public_link} class="public-button"
+          >{publicButtonText}</button
+        >
+      </div>
+    {/if}
   </div>
 </div>
 
