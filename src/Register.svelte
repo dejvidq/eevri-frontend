@@ -8,9 +8,6 @@
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   function handleSubmit() {
-    if (!username || !password || !email) {
-      return;
-    }
     document.querySelector(".usernameError").style.display = "none";
     document.querySelector(".emailError").style.display = "none";
     let error = false;
