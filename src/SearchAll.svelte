@@ -28,7 +28,7 @@
   getLinks();
 </script>
 
-<h1>Search results for: {name}</h1>
+<h1>Global search results for: {name}</h1>
 <div class="container">
   {#each links.reverse() as link}
     <div class="hiperlinks">

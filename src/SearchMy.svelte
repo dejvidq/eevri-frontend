@@ -25,10 +25,15 @@
       .catch((err) => console.log(err));
   }
   getLinks();
+
+  function searchGlobal() {
+    window.location.href = "/search/all/" + encodeURIComponent(name);
+  }
 </script>
 
 <h1>Search results for: {name}</h1>
 <div class="container">
+  <button class="searchAll" on:click={searchGlobal}>Search globally</button>
   {#each links.reverse() as link}
     <div class="hiperlinks">
       <Link url="/link/{link.id}" name={link.name} />
@@ -52,6 +57,14 @@
     min-height: 10%;
     max-height: 80%;
     overflow-y: scroll;
+  }
+
+  .searchAll {
+    width: 20%;
+    padding: 12px;
+    border-radius: 10px;
+    width: 20%;
+    background-color: #174a1e;
   }
 
   .container > .hiperlinks {
