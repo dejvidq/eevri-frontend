@@ -1,5 +1,4 @@
 <script>
-  export let url;
   export let name;
   import Link from "./Link.svelte";
   let access_token = localStorage.getItem("accessToken");
