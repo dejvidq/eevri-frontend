@@ -1,4 +1,6 @@
 <script>
+  import { checkLogin } from "./check_login.js";
+  checkLogin();
   export let id;
   let url;
   let name;
@@ -14,7 +16,7 @@
       return;
     }
     if (tags === null) tags = [];
-    else if (typeof tags === "string") tags = [tags.split(",")];
+    else if (typeof tags === "string") tags = tags.split(" ");
     else if (Array.isArray(tags)) tags = tags;
     else tags = [];
     fetch("http://localhost:8000/link/" + id, {
@@ -59,7 +61,7 @@
       url = data.link.url;
       name = data.link.name;
       description = data.link.description;
-      tags = data.link.tags;
+      tags = data.link.tags.join(" ");
       category = data.link.category;
       link_public = data.link.public;
     })

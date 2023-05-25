@@ -1,4 +1,8 @@
 <script>
+  import { title } from "./title.js";
+  title.set("Eevri");
+  import { checkLogin } from "./check_login.js";
+  checkLogin();
   import Link from "./Link.svelte";
   let access_token = localStorage.getItem("accessToken");
   let links = [];

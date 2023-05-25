@@ -1,4 +1,6 @@
 <script>
+  import { checkLogin } from "./check_login.js";
+  checkLogin();
   export let name;
   import Link from "./Link.svelte";
   let access_token = localStorage.getItem("accessToken");

@@ -5,6 +5,7 @@
   import Links from "./Links.svelte";
   import Add from "./Add.svelte";
   import Header from "./Header.svelte";
+  import HeaderGuest from "./HeaderGuest.svelte";
   import LinkDetails from "./LinkDetails.svelte";
   import EditLink from "./EditLink.svelte";
   import TagLinks from "./TagLinks.svelte";
@@ -13,33 +14,40 @@
   import SearchAll from "./SearchAll.svelte";
   import ProfilePage from "./ProfilePage.svelte";
 
-  let access_token = localStorage.getItem("accessToken");
-  if (access_token) {
-    fetch("http://localhost:8000/auth/login/check", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        access_token: access_token,
-      }),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        if (data.expired) {
-          localStorage.removeItem("accessToken");
-          window.location.href = "/login";
-        }
-      })
-      .catch((err) => console.log(err));
-  }
+  import { title } from "./title.js";
+
+  let access_token = localStorage.getItem("access_token");
+  /* if (access_token) { */
+  /*   fetch("http://localhost:8000/auth/login/check", { */
+  /*     method: "POST", */
+  /*     headers: { */
+  /*       "Content-Type": "application/json", */
+  /*       Accept: "application/json", */
+  /*     }, */
+  /*     body: JSON.stringify({ */
+  /*       access_token: access_token, */
+  /*     }), */
+  /*   }) */
+  /*     .then((res) => { */
+  /*       return res.json(); */
+  /*     }) */
+  /*     .then((data) => { */
+  /*       if (data.expired) { */
+  /*         localStorage.removeItem("access_token"); */
+  /*         window.location.href = "/login"; */
+  /*       } */
+  /*     }) */
+  /*     .catch((err) => console.log(err)); */
+  /* } */
 </script>
+
+<svelte:head>
+  <title>Eevri</title>
+</svelte:head>
 
 <Router>
   <Route path="/login">
+    <HeaderGuest />
     <Login />
   </Route>
   <Route path="/register">
@@ -63,7 +71,6 @@
     <CategoryLinks name={params.name} />
   </Route>
   <Route path="/link/:id" let:params>
-    <Header />
     <LinkDetails id={params.id} />
   </Route>
   <Route path="/link/edit/:id" let:params>
@@ -75,7 +82,6 @@
     <SearchMy name={params.name} />
   </Route>
   <Route path="/search/all/:name" let:params>
-    <Header />
     <SearchAll name={params.name} />
   </Route>
   <Route path="/profile">

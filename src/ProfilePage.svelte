@@ -1,12 +1,19 @@
 <script>
+  import { checkLogin } from "./check_login.js";
+  checkLogin();
   let access_token = localStorage.getItem("accessToken");
-  export let password;
-  export let currentPassword;
-  export let confirmPassword;
+  let password;
+  let currentPassword;
+  let confirmPassword;
 
   function changePassword() {
     if (password !== confirmPassword) {
+      document.querySelector(".passwordNotMatchError").style.display = "block";
+      return;
+    }
+    if (!verifyPassword(password)) {
       document.querySelector(".passwordError").style.display = "block";
+      return;
     }
     fetch("http://localhost:8000/user/password", {
       method: "PUT",
@@ -34,12 +41,14 @@
       .catch((err) => console.log(err));
   }
 
-  function deleteAccount() {
-    let answer = prompt(
-      "Are you sure you want to delete your account? Type 'Remove Account' to confirm."
+  function verifyPassword(password) {
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+      password
     );
-    alert(">>" + answer + "<<");
-    if (answer === "Remove Account") {
+  }
+
+  function deleteAccount() {
+    if (confirm("Are you sure you want to delete your account?")) {
       fetch("http://localhost:8000/user/account", {
         method: "DELETE",
         headers: {
@@ -95,7 +104,11 @@
       placeholder="Enter confirmPassword"
       bind:value={confirmPassword}
     />
-    <p class="passwordError">Passwords don't match</p>
+    <p class="passwordNotMatchError">Passwords don't match</p>
+    <p class="passwordError">
+      Passwords has to have at least 8 characters, one digits, one lowercase and
+      one uppercase letter
+    </p>
     <div class="buttons">
       <button on:click={changePassword} class="changePassword"
         >Change Password</button
@@ -149,6 +162,12 @@
     text-align: center;
   }
   .passwordError {
+    color: white;
+    margin: 0 5px 5px 5px;
+    background-color: red;
+    display: none;
+  }
+  .passwordNotMatchError {
     color: white;
     margin: 0 5px 5px 5px;
     background-color: red;

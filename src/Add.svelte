@@ -1,4 +1,6 @@
 <script>
+  import { checkLogin } from "./check_login.js";
+  checkLogin();
   let url;
   let name;
   let description;

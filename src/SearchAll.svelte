@@ -3,6 +3,8 @@
   import Link from "./Link.svelte";
   let access_token = localStorage.getItem("accessToken");
   let links = [];
+  import Header from "./Header.svelte";
+  import HeaderGuest from "./HeaderGuest.svelte";
 
   function getLinks() {
     fetch("http://localhost:8000/search/all/", {
@@ -27,6 +29,11 @@
   getLinks();
 </script>
 
+{#if access_token}
+  <Header />
+{:else}
+  <HeaderGuest />
+{/if}
 <h1>Global search results for: {name}</h1>
 <div class="container">
   {#each links.reverse() as link}

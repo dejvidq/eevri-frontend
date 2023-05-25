@@ -10,6 +10,9 @@
   let archiveButtonText;
   let mine;
 
+  import Header from "./Header.svelte";
+  import HeaderGuest from "./HeaderGuest.svelte";
+
   let access_token = localStorage.getItem("accessToken");
 
   fetch(`http://localhost:8000/link/${id}`, {
@@ -21,11 +24,14 @@
     },
   })
     .then((res) => {
+      if (res.status === 404) {
+        window.location.href = "/";
+      }
       return res.json();
     })
     .then((data) => {
       console.log(data);
-      url = data.link.url;
+      url = setCorrectUrl(data.link.url);
       name = data.link.name;
       description = data.link.description !== null ? data.link.description : "";
       tags = data.link.tags ? data.link.tags.join(", ") : "";
@@ -90,15 +96,28 @@
     }
   }
 
+  function setCorrectUrl(link) {
+    if (link.startsWith("http://") || link.startsWith("https://")) {
+      return link;
+    } else {
+      return "http://" + link;
+    }
+  }
+
   $: archiveButtonText = archived ? "Unarchive" : "Archive";
   $: publicButtonText = link_public ? "Unpublish" : "Publish";
 </script>
 
+{#if access_token}
+  <Header />
+{:else}
+  <HeaderGuest />
+{/if}
 <div class="body">
   <div class="link-box">
     <h1>{name}</h1>
     <label for="url">Url</label>
-    <a href="//{url}"><p>{url}</p></a>
+    <a href={url} target="_blank"><p>{url}</p></a>
     {#if description}
       <label for="description">Description</label>
       <p>{description}</p>
@@ -107,12 +126,20 @@
       <label for="tags">Tags</label>
       <p>
         {#each tags.split(",") as tag}
-          <a href="/tag/{tag.trim()}">{tag}</a>
+          {#if access_token}
+            <a href="/tag/{tag.trim()}">{tag}</a>
+          {:else}
+            {tag}
+          {/if}
         {/each}
       </p>
     {/if}
     <label for="category">Category</label>
-    <p><a href="/category/{category}">{category}</a></p>
+    {#if access_token}
+      <p><a href="/category/{category}">{category}</a></p>
+    {:else}
+      <p>{category}</p>
+    {/if}
     <label for="public">Public</label>
     <p>{link_public}</p>
     <label for="archived">Archived</label>

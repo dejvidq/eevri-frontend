@@ -8,7 +8,8 @@
       if (event.key === "Enter") {
         var searchText = searchInput.value.trim();
         if (searchText !== "") {
-          window.location.href = "/search/my/" + encodeURIComponent(searchText);
+          window.location.href =
+            "/search/all/" + encodeURIComponent(searchText);
         }
       }
     });
@@ -22,13 +23,7 @@
   <div class="search">
     <input id="searchInput" type="text" placeholder="Search" />
   </div>
-  <div class="user">
-    <a href="/profile"><img src="/img/profil.png" alt="profile" /></a>
-    <div class="dropdown">
-      <a href="/profile">PROFILE</a><br />
-      <a href="/logout">LOGOUT</a>
-    </div>
-  </div>
+  <div class="user" />
 </div>
 
 <style>
@@ -41,7 +36,7 @@
     justify-content: space-between;
     align-items: center;
     margin-top: -30px;
-    height: 160px;
+    height: 120px;
   }
 
   .appName {
@@ -55,11 +50,6 @@
     margin-top: -10px;
     padding: 10px;
     color: white;
-  }
-
-  img {
-    width: 50px;
-    margin-top: 30px;
   }
 
   .search {
@@ -84,9 +74,5 @@
 
   .search input[type="text"]::placeholder {
     color: #4d4d4d;
-  }
-
-  .search img {
-    margin-left: 10px;
   }
 </style>
