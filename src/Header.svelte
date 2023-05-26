@@ -24,10 +24,6 @@
   </div>
   <div class="user">
     <a href="/profile"><img src="/img/profil.png" alt="profile" /></a>
-    <div class="dropdown">
-      <a href="/profile">PROFILE</a><br />
-      <a href="/logout">LOGOUT</a>
-    </div>
   </div>
 </div>
 
@@ -41,7 +37,7 @@
     justify-content: space-between;
     align-items: center;
     margin-top: -30px;
-    height: 160px;
+    height: 120px;
   }
 
   .appName {

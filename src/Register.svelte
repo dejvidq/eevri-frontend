@@ -68,6 +68,32 @@
   function moveToLogin() {
     window.location.href = "/login";
   }
+
+  function validateUsernameLength() {
+    if (username.length >= 5) {
+      document.querySelector(".usernameError").style.display = "none";
+    }
+  }
+
+  function validateEmail() {
+    const emailRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (emailRegex.test(email)) {
+      document.querySelector(".emailError").style.display = "none";
+    }
+  }
+
+  function validatePassword() {
+    if (
+      password.length >= 8 &&
+      /[A-Z]/.test(password) &&
+      /[a-z]/.test(password) &&
+      /[0-9]/.test(password) &&
+      /[~!@#$%^&*()_\-+={[}\]|:;"'<,>.?/]/.test(password)
+    ) {
+      document.querySelector(".passwordError").style.display = "none";
+    }
+  }
 </script>
 
 <div class="body">
@@ -82,6 +108,7 @@
           name="username"
           placeholder="Enter your username"
           bind:value={username}
+          on:keyup={validateUsernameLength}
         />
         <p class="usernameError">
           Username has to be longer than 5 characters!
@@ -94,6 +121,7 @@
           name="email"
           placeholder="Enter your email"
           bind:value={email}
+          on:keyup={validateEmail}
         />
         <p class="emailError">Invalid email!</p>
 
@@ -104,6 +132,7 @@
           name="password"
           placeholder="Enter your password"
           bind:value={password}
+          on:keyup={validatePassword}
         />
         <p class="passwordError">
           Password has to be longer than 8 characters and contain at least one
