@@ -13,6 +13,7 @@
   import SearchMy from "./SearchMy.svelte";
   import SearchAll from "./SearchAll.svelte";
   import ProfilePage from "./ProfilePage.svelte";
+  import ArchivedPage from "./ArchivedPage.svelte";
 
   import { title } from "./title.js";
 
@@ -65,6 +66,10 @@
   <Route path="/profile">
     <Header />
     <ProfilePage />
+  </Route>
+  <Route path="/archived">
+    <Header />
+    <ArchivedPage />
   </Route>
 </Router>
 

@@ -71,9 +71,13 @@
     }
   }
 
-  function Logout() {
+  function logout() {
     localStorage.removeItem("accessToken");
     window.location.href = "/login";
+  }
+
+  function goToArchived() {
+    window.location.href = "/archived";
   }
 </script>
 
@@ -85,7 +89,7 @@
       type="password"
       id="currentPassword"
       name="currentPassword"
-      placeholder="Enter currentPassword"
+      placeholder="Enter current password"
       bind:value={currentPassword}
     />
     <label for="password">Password</label>
@@ -101,7 +105,7 @@
       type="password"
       id="confirmPassword"
       name="confirmPassword"
-      placeholder="Enter confirmPassword"
+      placeholder="Confirm new password"
       bind:value={confirmPassword}
     />
     <p class="passwordNotMatchError">Passwords don't match</p>
@@ -116,7 +120,8 @@
       <button on:click={deleteAccount} class="delete-account-button"
         >Delete Account</button
       >
-      <button on:click={Logout} class="logout-button">Logout</button>
+      <button on:click={logout} class="logout-button">Logout</button>
+      <button on:click={goToArchived} class="archived-button">Archived</button>
     </div>
   </div>
 </div>
@@ -188,6 +193,10 @@
 
   .logout-button {
     background-color: #414a1e;
+  }
+
+  .archived-button {
+    background-color: #bb5b00;
   }
   /* Mobile styles */
   @media only screen and (max-width: 900px) {
