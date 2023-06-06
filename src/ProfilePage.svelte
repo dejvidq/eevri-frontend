@@ -33,6 +33,11 @@
       })
       .then((data) => {
         console.log(data);
+        if (data.detail == "Invalid credentials") {
+          document.querySelector(".incorrectPasswordError").style.display =
+            "block";
+          return;
+        }
         if (data.message === "Password changed successfully") {
           localStorage.removeItem("accessToken");
           window.location.href = "/login";
@@ -92,6 +97,7 @@
       placeholder="Enter current password"
       bind:value={currentPassword}
     />
+    <p class="incorrectPasswordError">Invalid password</p>
     <label for="password">Password</label>
     <input
       type="password"
@@ -173,6 +179,12 @@
     display: none;
   }
   .passwordNotMatchError {
+    color: white;
+    margin: 0 5px 5px 5px;
+    background-color: red;
+    display: none;
+  }
+  .incorrectPasswordError {
     color: white;
     margin: 0 5px 5px 5px;
     background-color: red;
