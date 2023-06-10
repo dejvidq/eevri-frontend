@@ -52,6 +52,26 @@
     );
   }
 
+  function validatePassword() {
+    if (
+      password.length >= 8 &&
+      /[A-Z]/.test(password) &&
+      /[a-z]/.test(password) &&
+      /[0-9]/.test(password) &&
+      /[~!@#$%^&*()_\-+={[}\]|:;"'<,>.?/]/.test(password)
+    ) {
+      document.querySelector(".passwordError").style.display = "none";
+    }
+  }
+
+  function ValidateTheSamePasswords() {
+    if (password === confirmPassword) {
+      document.querySelector(".passwordNotMatchError").style.display = "none";
+    } else {
+      document.querySelector(".passwordNotMatchError").style.display = "block";
+    }
+  }
+
   function deleteAccount() {
     if (confirm("Are you sure you want to delete your account?")) {
       fetch("http://localhost:8000/user/account", {
@@ -105,6 +125,7 @@
       name="password"
       placeholder="Enter password"
       bind:value={password}
+      on:keyup={validatePassword}
     />
     <label for="confirmPassword">Confirm Password</label>
     <input
@@ -113,6 +134,7 @@
       name="confirmPassword"
       placeholder="Confirm new password"
       bind:value={confirmPassword}
+      on:keyup={ValidateTheSamePasswords}
     />
     <p class="passwordNotMatchError">Passwords don't match</p>
     <p class="passwordError">
